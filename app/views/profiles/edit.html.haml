@@ -1,0 +1,21 @@
+%header
+  .container.header-profile
+    .header-left
+      = link_to :back do
+        = image_tag 'Instagram_logo.png', width: '100px', height: '40px'
+    .header-center
+      = link_to @user.account, profile_path(@user)
+.container.profile-edit
+  %h2 プロフィール編集
+  = form_with(model: @profile, url: profile_path, method: 'put', local: true) do |f|
+    .field
+      = f.label :introduction, '自己紹介', class: 'devise-label'
+      %br/
+      = f.text_area :introduction, class: 'text'
+    .field
+      = f.label :avatar, 'アバター', class: 'devise-label'
+      %br/
+      = f.file_field :avatar
+    .actions
+      = f.submit "CREATE", class: 'btn-primary'
+      
