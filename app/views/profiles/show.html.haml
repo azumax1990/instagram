@@ -1,0 +1,44 @@
+%header
+  .container.header-profile
+    .header-left
+      = link_to :back do
+        = image_tag 'Instagram_logo.png', width: '100px', height: '40px'
+    .header-center
+      = link_to @user.account, '#'
+%section
+  .container.profile
+    .profile-top
+      .profile-left
+        .profile-image
+          - if @user.profile.avatar.attached?
+            = link_to '#' do
+              = image_tag @user.profile.avatar, width: '120px', height: '120px', class: 'user-icon'
+          - else
+            = link_to '#' do
+              = image_tag 'user-icon.png', width: '120px', height: '120px'
+      .profile-right
+        .profile-info
+          %h2= @user.account
+          - if current_user.id == @user.id
+            .btn-follow
+              = link_to 'プロフィールを編集する', edit_profile_path(@user)
+          - else
+            .btn-follow
+              = link_to 'フォローする', '#'
+        .profile-middle
+          .profile-box
+            %p.amount 10
+            %p.info 投稿
+          = link_to '#' do
+            .profile-box
+              %p.amount 100
+              %p.info フォロワー
+          = link_to '#' do
+            .profile-box
+              %p.amount 122
+              %p.info フォロー
+        - if @user.profile.introduction.present?
+          .profile-bottom
+            .profile-introduction
+              %p= @user.profile.introduction
+

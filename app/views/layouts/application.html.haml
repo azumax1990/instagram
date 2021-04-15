@@ -9,6 +9,7 @@
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   %body
     - if flash.present?
-      %p.notice= notice
-      %p.alert= alert
+      .flash
+        - flash.each do |key, value|
+          %div{:class => key}= value
     = yield
