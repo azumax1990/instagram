@@ -5,17 +5,20 @@
         = image_tag 'Instagram_logo.png', width: '100px', height: '40px'
     .header-center
       = link_to @user.account, '#'
+.profile-image-modal
+  .profile-image-change
+    %p.modal-title プロフィール写真を変更する
+    = link_to '写真をアップロードする', '#', class: 'profile-modal'
+    = link_to 'キャンセル', '#', class: 'profile-modal', id: 'profile-modal-close'
 %section
   .container.profile
     .profile-top
       .profile-left
         .profile-image
           - if @user.profile.avatar.attached?
-            = link_to '#' do
-              = image_tag @user.profile.avatar, width: '120px', height: '120px', class: 'user-icon'
+            = image_tag @user.profile.avatar, width: '120px', height: '120px', class: 'user-icon'
           - else
-            = link_to '#' do
-              = image_tag 'user-icon.png', width: '120px', height: '120px'
+            = image_tag 'user-icon.png', width: '120px', height: '120px'
       .profile-right
         .profile-info
           %h2= @user.account
