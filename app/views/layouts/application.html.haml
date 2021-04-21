@@ -6,7 +6,11 @@
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    %link{href: "//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css", rel: "stylesheet", type: "text/css"}/
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    %script{type: "text/javascript", src: "http://code.jquery.com/jquery-1.11.0.min.js"} 
+
+    %script{src: "//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js", type: "text/javascript"}
   %body
     - if flash.present?
       .flash

@@ -1,0 +1,54 @@
+.timeline {
+  padding: 40px 0;
+  background-color: #f0eeee;
+
+  .post {
+    background-color: #fff;
+    padding: 20px 0;
+    margin-bottom: 50px;
+    border: 1px solid #c0b9b9e5;
+
+    &-top {
+      display: flex;
+      margin-bottom: 10px;
+      padding-left: 15px;
+
+      &-right {
+        margin-left: 8px;
+    
+        .post-user-account {
+          font-weight: bold;
+        }
+        .post-time {
+          opacity: 0.5;
+        }
+      }
+    }
+    
+    &-middle {
+
+      .post-image {
+        height: 500px;
+      }
+    }
+  
+    &-bottom {
+      display: flex;
+      padding-top: 20px;
+      padding-left: 15px;
+      
+      .post-like {
+        margin-right: 15px;
+      }
+  
+      .post-comment {
+        margin-right: 15px;
+      }
+  
+      .post-share {
+  
+      }
+    }
+  }
+}
+

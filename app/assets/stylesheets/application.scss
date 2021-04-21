@@ -1,7 +1,15 @@
+@import 'slick-theme';
+@import 'slick';
+
+
 @import 'flash';
 @import 'form';
+
 @import 'profile/show';
 @import 'profile/edit';
+
+@import 'post/new';
+@import 'post/index';
 
 
 
@@ -17,5 +25,5 @@ li {
 
 .container {
   margin: 0 auto;
-  width: 90%;
+  width: 60%;
 }

@@ -1,0 +1,16 @@
+%header
+  .container
+    = link_to posts_path do
+      = image_tag 'Instagram_logo.png', width: '100px', height: '40px'
+%section.post.new
+  .container
+    %h2 投稿する
+    = form_with(model: @post, local: true) do |f|
+      .field
+        = f.text_area :content, placeholder: 'whats on your mind?', class: 'text'
+      .field
+        = f.label :images, '+ Albam', class: 'label-image'
+        %br/
+        = f.file_field :images, multiple: true, class: 'form-image'
+      .actions
+        = f.submit "CREATE", class: 'btn-primary'

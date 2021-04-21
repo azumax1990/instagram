@@ -9,7 +9,9 @@ require("@rails/activestorage").start()
 require("channels")
 
 import $ from 'jquery'
+import 'slick-carousel';
 import axios from 'axios'
+
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
@@ -18,7 +20,7 @@ import axios from 'axios'
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbolinks:load', () => {
   $('.profile-image').on('click', () => {
     $('.profile-image-modal').fadeIn()
     $('.profile-image-modal').on('click', () => {
@@ -28,4 +30,12 @@ document.addEventListener('DOMContentLoaded', () => {
       $('.profile-image-modal').fadeOut()
     })
   })
+
+  $('.slider').slick( {
+    dots: true,
+  }) 
+    
+  
+  
 })
+

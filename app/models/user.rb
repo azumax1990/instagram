@@ -24,6 +24,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :account, uniqueness: true
+
+  has_many :posts
   has_one :profile, dependent: :destroy
 
   def prepare_profile

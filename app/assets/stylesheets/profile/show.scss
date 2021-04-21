@@ -1,17 +1,8 @@
  header {
   border-bottom: thin solid #9E9E9E;
-  .header-profile {
-    display: flex;
     
-    .header-left {
-      padding-top: 7px;
-    }
-    .header-center {
-      margin-left: 500px;
-      width: 100%;
-      line-height: 55px;
-      font-weight: bold;
-    }
+  .header-left {
+    padding-top: 7px;
   }
  }
 
@@ -53,14 +44,13 @@
   display: flex;
   padding-top: 20px;
   .profile-left {
-    
     width: 40%;
 
     .profile-image {
       border-radius: 100%;
       position: relative;
       top: 20px;
-      left: 220px;
+      left: 120px;
       
       .user-icon {
         border-radius: 100%;

@@ -1,10 +1,8 @@
 %header
   .container.header-profile
     .header-left
-      = link_to :back do
+      = link_to posts_path do
         = image_tag 'Instagram_logo.png', width: '100px', height: '40px'
-    .header-center
-      = link_to @user.account, '#'
 .profile-image-modal
   .profile-image-change
     %p.modal-title プロフィール写真を変更する
