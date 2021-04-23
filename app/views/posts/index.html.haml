@@ -1,0 +1,48 @@
+%header
+  .container
+    = link_to new_post_path do
+      = image_tag 'camera-icon.png',  width: '50px', height: '40px'
+%section.timeline
+  .posts
+    .container
+      - @posts.each do |post|
+        .post
+          .post-top
+            .post-top-left
+              .post-user-icon  
+                - if post.user.profile.avatar.attached?
+                  = link_to profile_path(post.user) do
+                    = image_tag post.user.profile.avatar, width: '50px', height: '50px'
+                - else
+                  = link_to profile_path(post.user) do
+                    = image_tag 'user-icon.png', width: '50px', height: '50px'
+            .post-top-right
+              = link_to post.user.account, profile_path(post.user), class: 'post-user-account'
+              .post-time= post.created_at
+          .post-middle
+            .post-image
+              .slider
+                - post.images.each do |image|
+                  = image_tag image, width: '100%', height: '500px'
+          .post-bottom
+            .post-bottom-item
+              .post-like
+                = image_tag 'like.png', width: '20px', heght: '20px' 
+              .post-comment
+                = image_tag 'comment.png', width: '20px', heght: '20px' 
+              .post-share
+                = link_to "https://twitter.com/intent/tweet?url=https://http://localhost:3000/posts" do
+                  = image_tag 'share.png', width: '20px', heght: '20px'
+            .post-boottom-liked
+              %p emily5555, 他５万人がいいねしました！
+            .post-bottom-content
+              .account-name
+                = post.user.account
+              = post.content
+
+
+          
+
+
+
+
