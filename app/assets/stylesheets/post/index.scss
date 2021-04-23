@@ -1,6 +1,6 @@
 .timeline {
   padding: 40px 0;
-  background-color: #f0eeee;
+  background-color: #faf9f9;
 
   .post {
     background-color: #fff;
@@ -12,6 +12,10 @@
       display: flex;
       margin-bottom: 10px;
       padding-left: 15px;
+
+      img {
+        border-radius: 100%;
+      }
 
       &-right {
         margin-left: 8px;
@@ -33,21 +37,27 @@
     }
   
     &-bottom {
-      display: flex;
       padding-top: 20px;
-      padding-left: 15px;
-      
-      .post-like {
-        margin-right: 15px;
+        padding-left: 15px;
+
+      &-item {
+        display: flex;
+        
+        .post-like {
+          margin-right: 15px;
+        }
+    
+        .post-comment {
+          margin-right: 15px;
+        }
       }
-  
-      .post-comment {
-        margin-right: 15px;
-      }
-  
-      .post-share {
-  
-      }
+
+      &-content {
+
+        .account-name {
+          font-weight: bold;
+        }
+      } 
     }
   }
 }
