@@ -33,7 +33,10 @@ document.addEventListener('turbolinks:load', () => {
 
   $('.slider').slick( {
     dots: true,
-  }) 
+  })
+
+  // いいね機能
+  
     
   
   
