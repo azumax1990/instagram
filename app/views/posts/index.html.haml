@@ -27,7 +27,12 @@
           .post-bottom
             .post-bottom-item
               .post-like
-                = image_tag 'like.png', width: '20px', heght: '20px' 
+                - if current_user.has_liked?(post)
+                  .active-like
+                    = image_tag 'like.active.png', width: '20px', heght: '20px'
+                - else 
+                  .like
+                    = image_tag 'like.png', width: '20px', heght: '20px' 
               .post-comment
                 = image_tag 'comment.png', width: '20px', heght: '20px' 
               .post-share
