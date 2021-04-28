@@ -38,14 +38,19 @@
   
     &-bottom {
       padding-top: 20px;
-        padding-left: 15px;
+      padding-left: 15px;
+      
 
       &-item {
         display: flex;
-        
+    
         .post-like {
           margin-right: 15px;
           display: block;
+
+          .hidden {
+            display: none;
+          }
         }
     
         .post-comment {
