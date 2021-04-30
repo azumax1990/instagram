@@ -26,6 +26,8 @@ axios.defaults.headers.common['X-CSRF-Token'] = csrfToken()
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
+
+// 関数
 const handleHeartDisplay = (hasLiked) => {
   if (hasLiked) {
     $('.active-like').removeClass('hidden')
@@ -33,6 +35,8 @@ const handleHeartDisplay = (hasLiked) => {
     $('.like').removeClass('hidden')
   }
 }
+
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -53,37 +57,73 @@ document.addEventListener('DOMContentLoaded', () => {
   // いいね機能
   const postId = $('#post-show').data('postId')
   axios.get(`/posts/${postId}/likes`)
-  .then( (response) => {
-    const hasLiked = response.data.hasLiked
-    handleHeartDisplay(hasLiked)
-  })
+    .then( (response) => {
+      const hasLiked = response.data.hasLiked
+      handleHeartDisplay(hasLiked)
+    })
 
   $('.like').on('click', () => {
     axios.post(`/posts/${postId}/likes`)
-    .then((response) => {
-      if (response.data.status === 'ok') {
-        $('.active-like').removeClass('hidden')
-        $('.like').addClass('hidden')
-      }
-    })
-    .catch((e) => {
-      window.alert('error')
-      console.log(e)
-    })
+      .then((response) => {
+        if (response.data.status === 'ok') {
+          $('.active-like').removeClass('hidden')
+          $('.like').addClass('hidden')
+        }
+      })
+      .catch((e) => {
+        window.alert('error')
+        console.log(e)
+      })
   })
 
   $('.active-like').on('click', () => {
     axios.delete(`/posts/${postId}/likes`)
+      .then((response) => {
+        if (response.data.status === 'ok') {
+          $('.active-like').addClass('hidden')
+          $('.like').removeClass('hidden')
+        }
+      })
+      .catch((e) => {
+        window.alert('error')
+        console.log(e)
+      })
+  })
+
+
+
+
+  // コメント機能
+    // コメント一覧表示
+  const commentAppend = (comment) => {
+    $('.comment-container').append(
+      `<div class="comment-show">
+        <p class="comment-account-name"></p>
+        <p class="comment-content">${comment.content}</p>
+      </div>`
+    )
+  }
+  
+  axios.get(`/posts/${postId}/comments`)
     .then((response) => {
-      if (response.data.status === 'ok') {
-        $('.active-like').addClass('hidden')
-        $('.like').removeClass('hidden')
-      }
+      const comments = response.data
+      comments.forEach((comment) => {
+        commentAppend(comment)
+      })
     })
-    .catch((e) => {
-      window.alert('error')
-      console.log(e)
-    })
+
+    // コメント投稿
+  $('.btn-comment').on('click', () => {
+    const content = $('#comment_content').val()
+    if (!content) {
+      $('#comment_content').val('コメントを入力してください')
+    } else {
+      axios.post(`/posts/${postId}/comments`, {comment: {content: content}})
+        .then((response) => {
+          const comment = response.data
+          commentAppend(comment)
+          $('#comment_content').val('')
+        })
+    }
   })
 })
-
