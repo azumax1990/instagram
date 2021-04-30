@@ -36,16 +36,21 @@
               .post-share
                 = link_to "https://twitter.com/intent/tweet?url=https://http://localhost:3000/posts" do
                   = image_tag 'share.png', width: '20px', heght: '20px'
-            .post-boottom-liked
+            .post-bottom-liked
               %p emily5555, 他５万人がいいねしました！
             .post-bottom-content
               .account-name
                 = post.user.account
-              = post.content
-
-
-          
-
+              .post-content
+                = post.content
+            .post-bottom-comment
+              %p.comment-title コメント
+              .comment-container
+                .comment-show
+          .comment-text-area
+            = text_area_tag :comment_content, '', placeholder: 'コメントを追加...', class: 'comment-form'
+            .btn-comment
+              投稿する
 
 
 
