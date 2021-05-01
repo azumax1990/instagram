@@ -4,6 +4,9 @@
       = image_tag 'Instagram_logo.png', width: '100px', height: '40px'
 %section.post.new
   .container
+    %ul
+      - @post.errors.full_messages.each do |message|
+        %li= message
     %h2 投稿する
     = form_with(model: @post, local: true) do |f|
       .field
