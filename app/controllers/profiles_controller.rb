@@ -1,8 +1,8 @@
 class ProfilesController < ApplicationController
+  before_action :move_back, only: [:edit]
   
-
   def show
-    @user = User.find(1)
+    @user = User.find(params[:id])
   end
 
   def edit
@@ -23,5 +23,13 @@ class ProfilesController < ApplicationController
   private
   def profile_params
     params.require(:profile).permit(:introduction, :avatar, user_id: current_user.id)
+  end
+
+  def move_back
+    @user = User.find(params[:id])
+    if
+      !@user.id == current_user.id
+      redirect_to root_path
+    end
   end
 end
