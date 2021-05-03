@@ -27,7 +27,7 @@ axios.defaults.headers.common['X-CSRF-Token'] = csrfToken()
 // const imagePath = (name) => images(name, true)
 
 
-// 関数
+// function
 const handleHeartDisplay = (hasLiked) => {
   if (hasLiked) {
     $('.active-like').removeClass('hidden')
@@ -35,8 +35,6 @@ const handleHeartDisplay = (hasLiked) => {
     $('.like').removeClass('hidden')
   }
 }
-
-
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -89,8 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(e)
       })
   })
-
-
 
 
   // コメント機能
