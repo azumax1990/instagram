@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // コメント機能
     // コメント一覧表示
   const commentAppend = (comment) => {
-    $('.comment-container').append(
+    $(commentContainer).append(
       `<div class="comment-show">
         <p class="comment-account-name"></p>
         <p class="comment-content">${comment.content}</p>
@@ -113,13 +113,23 @@ document.addEventListener('DOMContentLoaded', () => {
     )
   }
   
-  axios.get(`/posts/${postId}/comments`)
+  $('.post').each(function (index, element) {
+    const postId = $(element).data('postId')
+    axios.get(`/posts/${postId}/comments`)
     .then((response) => {
       const comments = response.data
+      const commentContainer = $(`.comment${postId}`)
       comments.forEach((comment) => {
-        commentAppend(comment)
+        $(commentContainer).append(
+          `<div class="comment-show">
+            <p class="comment-account-name"></p>
+            <p class="comment-content">${comment.content}</p>
+          </div>`
+        )
       })
     })
+  })
+  
 
     // コメント投稿
   $('.btn-comment').on('click', () => {

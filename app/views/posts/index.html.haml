@@ -41,7 +41,7 @@
                 = post.content
             .post-bottom-comment
               %p.comment-title コメント
-              .comment-container
+              .comment-container{class: "comment#{post.id}"}
                 .comment-show
           .comment-text-area
             = text_area_tag :comment_content, '', placeholder: 'コメントを追加...', class: 'comment-form'
