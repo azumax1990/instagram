@@ -28,14 +28,10 @@ axios.defaults.headers.common['X-CSRF-Token'] = csrfToken()
 
 
 // function
-const handleHeartDisplay = (hasLiked) => {
-  if (hasLiked) {
-    $('.active-like').removeClass('hidden')
-  } else {
-    $('.like').removeClass('hidden')
-  }
-}
-
+// const handleHeartDisplay = (hasLiked) => {
+  
+  
+// }
 
 document.addEventListener('DOMContentLoaded', () => {
   $('.profile-image').on('click', () => {
@@ -53,19 +49,33 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   // いいね機能
-  const postId = $('#post-show').data('postId')
-  axios.get(`/posts/${postId}/likes`)
-    .then( (response) => {
-      const hasLiked = response.data.hasLiked
-      handleHeartDisplay(hasLiked)
-    })
+    // いいね表示
+  $('.post').each(function (index, element) {
+    const postId = $(element).data('postId')
+    axios.get(`/posts/${postId}/likes`)
+      .then( (response) => {
+        const hasLiked = response.data.hasLiked
+        const activeLike = $(`.active-like${postId}`)
+        const like       = $(`.like${postId}`)
+        if (hasLiked) {
+          $(activeLike).removeClass('hidden')
+        } else {
+          $(like).removeClass('hidden')
+        }
+      })
+  })
+  
+  // いいねcreate
 
-  $('.like').on('click', () => {
-    axios.post(`/posts/${postId}/likes`)
+  $('.like').on('click', event => {
+    const id = $(event.currentTarget).data('id')
+    axios.post(`/posts/${id}/likes`)
       .then((response) => {
         if (response.data.status === 'ok') {
-          $('.active-like').removeClass('hidden')
-          $('.like').addClass('hidden')
+          const activeLike = $(`.active-like${id}`)
+          const like       = $(`.like${id}`)
+          $(activeLike).removeClass('hidden')
+          $(like).addClass('hidden')
         }
       })
       .catch((e) => {
@@ -74,12 +84,16 @@ document.addEventListener('DOMContentLoaded', () => {
       })
   })
 
-  $('.active-like').on('click', () => {
-    axios.delete(`/posts/${postId}/likes`)
+  // いいねdestroy
+  $('.active-like').on('click', event => {
+    const id = $(event.currentTarget).data('id')
+    axios.delete(`/posts/${id}/likes`)
       .then((response) => {
         if (response.data.status === 'ok') {
-          $('.active-like').addClass('hidden')
-          $('.like').removeClass('hidden')
+          const activeLike = $(`.active-like${id}`)
+          const like       = $(`.like${id}`)
+          $(activeLike).addClass('hidden')
+          $(like).removeClass('hidden')
         }
       })
       .catch((e) => {

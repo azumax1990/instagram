@@ -23,9 +23,9 @@
           .post-bottom
             .post-bottom-item
               .post-like
-                .active-like.hidden
+                .active-like.hidden{class: "active-like#{post.id}", data: {id: post.id}}
                   = image_tag 'like.active.png', width: '20px', heght: '20px'
-                .like.hidden
+                .like.hidden{class: "like#{post.id}", data: {id: post.id}}
                   = image_tag 'like.png', width: '20px', heght: '20px'
               .post-comment
                 = image_tag 'comment.png', width: '20px', heght: '20px' 
