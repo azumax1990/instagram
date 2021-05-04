@@ -66,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
   })
   
   // いいねcreate
-
   $('.like').on('click', event => {
     const id = $(event.currentTarget).data('id')
     axios.post(`/posts/${id}/likes`)
