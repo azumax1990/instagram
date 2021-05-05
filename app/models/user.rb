@@ -37,4 +37,12 @@ class User < ApplicationRecord
   def has_liked?(post)
     likes.exists?(post_id: post.id)
   end
+
+  def has_avatar
+    if profile&.avatar&.attached?
+      profile.avatar
+    else
+      'user-icon.png'
+    end
+  end
 end

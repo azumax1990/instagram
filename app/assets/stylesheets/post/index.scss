@@ -39,6 +39,8 @@
     &-bottom {
       padding-top: 20px;
       padding-left: 15px;
+
+
       
 
       &-item {
@@ -65,10 +67,13 @@
       }
 
       &-content {
+        display: flex;
 
         .account-name {
           font-weight: bold;
+          margin-right: 10px;
         }
+        
       } 
 
       &-comment {
