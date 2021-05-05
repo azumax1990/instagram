@@ -55,12 +55,19 @@ document.addEventListener('DOMContentLoaded', () => {
     axios.get(`/posts/${postId}/likes`)
       .then( (response) => {
         const hasLiked = response.data.hasLiked
+        const likeAmounts = response.data.likeCounts
         const activeLike = $(`.active-like${postId}`)
         const like       = $(`.like${postId}`)
+        const likeCounts = $(`.like-counts${postId}`)
         if (hasLiked) {
           $(activeLike).removeClass('hidden')
         } else {
           $(like).removeClass('hidden')
+        }
+        if (likeAmounts > 0) {
+          $(likeCounts).append(
+            `<p>${likeAmounts}人がいいねしました！</p>
+          `)
         }
       })
   })
@@ -71,10 +78,16 @@ document.addEventListener('DOMContentLoaded', () => {
     axios.post(`/posts/${id}/likes`)
       .then((response) => {
         if (response.data.status === 'ok') {
+          const likeAmounts = response.data.likeCounts
           const activeLike = $(`.active-like${id}`)
           const like       = $(`.like${id}`)
+          const likeCounts = $(`.like-counts${id}`)
           $(activeLike).removeClass('hidden')
           $(like).addClass('hidden')
+          $(likeCounts).html('')
+          $(likeCounts).append(
+            `<p>${likeAmounts}人がいいねしました！</p>
+          `)
         }
       })
       .catch((e) => {
@@ -89,10 +102,18 @@ document.addEventListener('DOMContentLoaded', () => {
     axios.delete(`/posts/${id}/likes`)
       .then((response) => {
         if (response.data.status === 'ok') {
+          const likeAmounts = response.data.likeCounts
           const activeLike = $(`.active-like${id}`)
           const like       = $(`.like${id}`)
+          const likeCounts = $(`.like-counts${id}`)
           $(activeLike).addClass('hidden')
           $(like).removeClass('hidden')
+          $(likeCounts).html('')
+          if (likeAmounts > 0) {
+            $(likeCounts).append(
+              `<p>${likeAmounts}人がいいねしました！</p>
+            `)
+          }
         }
       })
       .catch((e) => {
@@ -104,34 +125,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // コメント機能
     // コメント一覧表示
-  const commentAppend = (comment) => {
-    $('.comment-container').append(
-      `<div class="comment-show">
-        <p class="comment-account-name"></p>
-        <p class="comment-content">${comment.content}</p>
-      </div>`
-    )
-  }
+  // const commentAppend = (comment) => {
+  //   $(commentContainer).append(
+  //     `<div class="comment-show">
+  //       <p class="comment-account-name"></p>
+  //       <p class="comment-content">${comment.content}</p>
+  //     </div>`
+  //   )
+  // }
   
-  axios.get(`/posts/${postId}/comments`)
+  $('.post').each(function (index, element) {
+    const postId = $(element).data('postId')
+    axios.get(`/posts/${postId}/comments`)
     .then((response) => {
       const comments = response.data
-      comments.forEach((comment) => {
-        commentAppend(comment)
+      const commentContainer = $(`.comment${postId}`)
+      comments.forEach((comment) => { 
+        $(commentContainer).append(
+          `<div class="comment-show">
+            <p class="comment-account-name">${comment.user.account}</p>
+            <p class="comment-content">${comment.content}</p>
+          </div>`)
       })
     })
+  })
+  
 
     // コメント投稿
-  $('.btn-comment').on('click', () => {
-    const content = $('#comment_content').val()
+  $('.btn-comment').on('click', event => {
+    const id = $(event.currentTarget).data('id')
+    const commentContent = $(`#comment_content${id}`)
+    const content = $(commentContent).val()
     if (!content) {
-      $('#comment_content').val('コメントを入力してください')
+      window.alert('コメントを入力してください')
     } else {
-      axios.post(`/posts/${postId}/comments`, {comment: {content: content}})
+      axios.post(`/posts/${id}/comments`, {comment: {content: content}})
         .then((response) => {
           const comment = response.data
-          commentAppend(comment)
-          $('#comment_content').val('')
+          const commentContainer = $(`.comment${id}`)
+          $(commentContainer).append(
+            `<div class="comment-show">
+              <p class="comment-account-name">${comment.user.account}</p>
+              <p class="comment-content">${comment.content}</p>
+            </div>`
+          )
+          $(commentContent).val('')
         })
     }
   })
