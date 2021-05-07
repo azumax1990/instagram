@@ -10,26 +10,39 @@
   background: rgba(26, 23, 23, 0.6);
   width: 100%;
   height: 100%;
-  position: fixed;
+  position: absolute;
+  top: 0;
   z-index: 1000;
   display: none;
+
+  .modal-delete {
+    color: white;
+    font-weight: bold;
+    font-size: 35px;
+    position: relative;
+    left: 1300px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
 
   .profile-image-change {
     background-color: white;
     text-align: center;
     width: 350px;
-    
     border-radius: 10px;
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%);
     
     .modal-title {
-      
       font-weight: bold;
     }
 
+    .image-file-modal {
+      display: none;
+    }
     .profile-modal {
       display: block;
       padding: 10px 0;
@@ -47,7 +60,6 @@
     width: 40%;
 
     .profile-image {
-      border-radius: 100%;
       position: relative;
       top: 20px;
       left: 120px;
@@ -56,6 +68,17 @@
         border-radius: 100%;
       }
     }
+    .profile-image-wrong {
+      position: relative;
+      top: 20px;
+      left: 120px;
+      
+      .user-icon {
+        border-radius: 100%;
+      }
+    }
+
+
   }
 
   .profile-right {
@@ -92,6 +115,137 @@
 
     .profile-introduction {
       padding: 10px 95px;
+    }
+  }
+}
+.profile-posts {
+  border-top: 1px solid #9E9E9E;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+
+  .profile-post {
+    width: 30%;
+    height: 300px;
+    margin-top: 20px;
+    margin-left: 22px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.post-modal {
+  background: rgba(26, 23, 23, 0.253);
+  width: 100%;
+  height: 2000px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+
+  .modal-delete {
+    color: white;
+    font-weight: bold;
+    font-size: 35px;
+    position: relative;
+    left: 1300px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  
+
+  .post-modal-image {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translate(-50%);
+    z-index: 2000;
+    
+    width: 900px;
+    height: 600px;
+    display: flex;
+
+    .post-modal-left {
+      width: 65%;
+
+    }
+    .post-modal-right {
+      width: 35%;
+      background-color: white;
+
+
+      .modal-account {
+        display: flex;
+        padding: 10px 0 10px 10px;
+        border-bottom: 1px solid #9E9E9E;
+
+        img {
+          border-radius: 100%;
+        }
+        
+        p {
+          font-weight: bold;
+          margin: 0;
+          padding: 5px 0 0 10px;
+        }
+      }
+      .modal-comment-container {
+        padding: 10px;
+        overflow: scroll;
+        .modal-comment-box {
+          display: flex;
+          margin-bottom: 5px;
+
+          .modal-comment-left {
+            img {
+              border-radius: 100%;
+            }
+          }
+
+          .modal-comment-right {
+            margin-left: 10px;
+
+            .comment-account {
+              margin: 0;
+              font-weight: bold;
+              font-size: 15px;
+            }
+
+            .modal-comment {
+              margin: 0;
+              font-size: 15px;
+            }
+          }
+        }
+        
+      }
+      .comment-text-area {
+        position: relative;
+        top: 426px;
+        
+
+        .comment-form {
+          width: 100%;
+          box-sizing: border-box;
+          border: none;
+          border-top: 1px solid #9E9E9E;
+          padding: 0 75px 0 10px;
+        }
+
+        .btn-comment {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+
+      }
     }
   }
 }

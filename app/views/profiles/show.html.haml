@@ -1,17 +1,22 @@
 .profile-image-modal
+  %p.modal-delete ×
   .profile-image-change
     %p.modal-title プロフィール写真を変更する
-    = link_to '写真をアップロードする', '#', class: 'profile-modal'
+    = form_with(model: @profile, method: 'put', local: true) do |f|
+      = f.label :avatar, '写真をアップロード', class: 'profile-modal'
+      = f.file_field :avatar, class: 'image-file-modal'
+    -# = link_to '写真をアップロードする', '#', class: 'profile-modal'
     = link_to 'キャンセル', '#', class: 'profile-modal', id: 'profile-modal-close'
 %section
-  .container.profile
+  .container.profile{data: {id: @user.id}}
     .profile-top
       .profile-left
-        .profile-image
-          - if @user.profile.avatar.attached?
-            = image_tag @user.profile.avatar, width: '120px', height: '120px', class: 'user-icon'
-          - else
-            = image_tag 'user-icon.png', width: '120px', height: '120px'
+        - if current_user.id == @user.id 
+          .profile-image
+            = image_tag @user.has_avatar, width: '120px', height: '120px', class: 'user-icon'
+        - else
+          .profile-image-wrong
+            = image_tag @user.has_avatar, width: '120px', height: '120px', class: 'user-icon'
       .profile-right
         .profile-info
           %h2= @user.account
@@ -33,8 +38,41 @@
             .profile-box
               %p.amount 122
               %p.info フォロー
-        - if @user.profile.introduction.present?
+        - if @user&.profile&.introduction.present?
           .profile-bottom
             .profile-introduction
               %p= @user.profile.introduction
+%section.profile-post-container
+  .container
+    .profile-posts
+      - if @user.posts
+        - @user.posts.each do |post|
+          .profile-post{data: {id: post.id}}
+            = image_tag post.images[0], width: '100%', height: '100%'
+          .post-modal.hidden{class: "post-modal#{post.id}"}
+            %p.modal-delete ×
+            .post-modal-image
+              .post-modal-left
+                .slider
+                  - post.images.each do |image|
+                    = image_tag image, width: '100%', height: '600px'
+              .post-modal-right
+                .modal-account
+                  = image_tag @user.has_avatar, width: '35px', height: '35px'
+                  %p= @user.account
+                .modal-comment-container
+                  .modal-comment-box
+                    .modal-comment-left
+                      = image_tag @user.has_avatar, width: '35px', height: '35px'
+                    .modal-comment-right
+                      %p.comment-account max0502
+                      %p.modal-comment すごーい
+                .comment-text-area
+                  = text_area_tag :"comment_content", '', class: 'comment-form'
+                  .btn-comment
+                    投稿する
+
+
+
+
 

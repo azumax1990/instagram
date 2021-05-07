@@ -34,18 +34,43 @@ axios.defaults.headers.common['X-CSRF-Token'] = csrfToken()
 // }
 
 document.addEventListener('DOMContentLoaded', () => {
+
+  // 投稿slide機能
+  $('.slider').slick( {
+    dots: true,
+  })
+  
+
+  // プロフィール画像変更
   $('.profile-image').on('click', () => {
     $('.profile-image-modal').fadeIn()
-    $('.profile-image-modal').on('click', () => {
+    $('.modal-delete').on('click', () => {
       $('.profile-image-modal').fadeOut()
     })
     $('#profile-modal-close').on('click', () => {
       $('.profile-image-modal').fadeOut()
     })
   })
+  // $('.image-file-modal').on('change', () => {
+  //   const id = $('.profile').data('id')
+  //   axios.put(`/images/${id}`)
+  //     .then((response) => {
+        
+  //     })
+  // })
 
-  $('.slider').slick( {
-    dots: true,
+
+  
+
+  // 投稿詳細＜プロフィールページ＞
+  $('.profile-post').on('click', event => {
+    const id = $(event.currentTarget).data('id')
+    const postModal = $(`.post-modal${id}`)
+    $(postModal).removeClass('hidden')
+    $('.slider').slick('setPosition')
+    $('.modal-delete').on('click', () => {
+      $(postModal).addClass('hidden')
+    })
   })
 
   // いいね機能
