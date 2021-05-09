@@ -77,7 +77,8 @@
       } 
 
       &-comment {
-        
+        height: 50px;
+        overflow: scroll;
         .comment-title {
           margin: 0;
           opacity: .3;

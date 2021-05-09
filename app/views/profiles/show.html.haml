@@ -49,6 +49,7 @@
         - @user.posts.each do |post|
           .profile-post{data: {id: post.id}}
             = image_tag post.images[0], width: '100%', height: '100%'
+
           .post-modal.hidden{class: "post-modal#{post.id}"}
             %p.modal-delete ×
             .post-modal-image
@@ -60,16 +61,10 @@
                 .modal-account
                   = image_tag @user.has_avatar, width: '35px', height: '35px'
                   %p= @user.account
-                .modal-comment-container
-                  .modal-comment-box
-                    .modal-comment-left
-                      = image_tag @user.has_avatar, width: '35px', height: '35px'
-                    .modal-comment-right
-                      %p.comment-account max0502
-                      %p.modal-comment すごーい
+                .modal-comment-container{class: "modal-comment-container#{post.id}"}
                 .comment-text-area
-                  = text_area_tag :"comment_content", '', class: 'comment-form'
-                  .btn-comment
+                  = text_area_tag :"profile_content#{post.id}", '', class: 'comment-form'
+                  .btn-comment-profile{data: {id: post.id}}
                     投稿する
 
 
