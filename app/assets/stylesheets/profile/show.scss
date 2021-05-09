@@ -194,11 +194,12 @@
       }
       .modal-comment-container {
         padding: 10px;
+        height: 460px;
         overflow: scroll;
         .modal-comment-box {
           display: flex;
           margin-bottom: 5px;
-
+          overflow: scroll;
           .modal-comment-left {
             img {
               border-radius: 100%;
@@ -222,10 +223,11 @@
         }
         
       }
+      
       .comment-text-area {
-        position: relative;
-        top: 426px;
-        
+        position: absolute;
+        bottom: 0;
+        width: 315px;
 
         .comment-form {
           width: 100%;
@@ -235,7 +237,7 @@
           padding: 0 75px 0 10px;
         }
 
-        .btn-comment {
+        .btn-comment-profile {
           position: absolute;
           top: 10px;
           right: 10px;
