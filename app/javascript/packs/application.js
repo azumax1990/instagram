@@ -219,10 +219,10 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
           </div>
         `)
-
       })
     })
   })
+
   //プロフィールページからのコメント作成
   $('.btn-comment-profile').on('click', event => {
     const id = $(event.currentTarget).data('id')
@@ -249,6 +249,68 @@ document.addEventListener('DOMContentLoaded', () => {
         $(`#profile_content${id}`).val('')
       })
     }
-    
   })
+
+  // トップページからのコメント機能
+    // コメント欄表示
+  $('.post-comment').on('click', event => {
+    const id = $(event.currentTarget).data('id')
+    $(`.post-modal${id}`).removeClass('hidden')
+    $('.slider').slick('setPosition')
+    $('.modal-delete').on('click', () => {
+      $(`.post-modal${id}`).addClass('hidden')
+    })
+  })
+    // コメント一覧表示
+  $('.post-comment').on('click', event => {
+    const id = $(event.currentTarget).data('id')
+    const modalTopCommentContainer = $(`.modal-top-comment-container${id}`)
+    axios.get(`/posts/${id}/comments`)
+    .then((response) => {
+      $(modalTopCommentContainer).html('')
+      const comments = response.data
+      comments.forEach(comment => {
+        $(modalTopCommentContainer).append(
+          `<div class="modal-comment-box">
+            <div class="modal-comment-left">
+              <a href="#"><img src=""></a>
+            </div>
+            <div class="modal-comment-right">
+              <p class="comment-account">${comment.user.account}</p>
+              <p class="modal-comment">${comment.content}</p>
+            </div>
+          </div>
+        `)
+      })
+    })
+  })
+
+    // コメント投稿機能
+    $('.btn-top-comment').on('click', event => {
+      const id = $(event.currentTarget).data('id')
+      const topContent = $(`#top_content${id}`)
+      const content = $(topContent).val()
+      const modalTopCommentContainer = $(`.modal-top-comment-container${id}`)
+      if (!content) {
+        window.alert('コメントを入力して下さい')
+        
+      } else {
+        axios.post(`/posts/${id}/comments`, {comment: {content: content}})
+        .then((response) => {
+          const comment = response.data
+          $(modalTopCommentContainer).append(
+            `<div class="modal-comment-box">
+              <div class="modal-comment-left">
+                <a href="#"><img src=""></a>
+              </div>
+              <div class="modal-comment-right">
+                <p class="comment-account">${comment.user.account}</p>
+                <p class="modal-comment">${comment.content}</p>
+              </div>
+            </div>
+          `)
+          $(`#top_content${id}`).val('')
+        })
+      }
+    })
 })
