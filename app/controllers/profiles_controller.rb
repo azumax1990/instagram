@@ -4,6 +4,8 @@ class ProfilesController < ApplicationController
   def show
     @user = User.find(params[:id])
     @profile = @user.prepare_profile
+    @followings = @user.followings
+    @followers = @user.followers
   end
 
   def edit
@@ -23,7 +25,7 @@ class ProfilesController < ApplicationController
 
   private
   def profile_params
-    params.require(:profile).permit(:introduction, :avatar, user_id: current_user.id)
+    params.require(:profile).permit(:introduction, :avatar).merge(user_id: current_user.id)
   end
 
   def move_back
