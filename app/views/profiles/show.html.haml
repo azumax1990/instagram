@@ -2,7 +2,7 @@
   %p.modal-delete ×
   .profile-image-change
     %p.modal-title プロフィール写真を変更する
-    = form_with(model: @profile, method: 'put', local: true) do |f|
+    = form_with() do |f|
       = f.label :avatar, '写真をアップロード', class: 'profile-modal'
       = f.file_field :avatar, class: 'image-file-modal'
     -# = link_to '写真をアップロードする', '#', class: 'profile-modal'
@@ -21,23 +21,57 @@
         .profile-info
           %h2= @user.account
           - if current_user.id == @user.id
-            .btn-follow
+            .btn-edit-profile
               = link_to 'プロフィールを編集する', edit_profile_path(@user)
           - else
-            .btn-follow
-              = link_to 'フォローする', '#'
+            .btn-follow.hidden{class: "btn-follow#{@user.id}", data: {id: @user.id}}
+              %p フォローする
+            .btn-rm.hidden{class: "btn-rm#{@user.id}", data: {id: @user.id}}
+              %p フォロー中
         .profile-middle
           .profile-box
-            %p.amount 10
+            %p.amount=@user.posts.count
             %p.info 投稿
-          = link_to '#' do
-            .profile-box
-              %p.amount 100
-              %p.info フォロワー
-          = link_to '#' do
-            .profile-box
-              %p.amount 122
-              %p.info フォロー
+          .profile-box.modal-follower-show
+            %p.amount#follower-amount=@user.followers.count
+            %p.info フォロワー
+          .modal-follower.hidden
+            .follower-container
+              %p.follow-title フォロワー
+              %p.modal-follower-delete ×
+              .follower-list
+                - if @user.followers
+                  - @followers.each do |follower|
+                    .follower-info{data: {id: follower.id}}
+                      .follower-image
+                        = link_to do
+                          = image_tag follower.has_avatar, width: '40px', height: '40px'
+                      .follower-account
+                        = link_to follower.account, '#'
+                      .modal-follow-btn.hidden{class: "modal-follow-btn#{follower.id}", data: {id: follower.id}}
+                        %p フォローする
+                      .modal-nofollow-btn.hidden{class: ".modal-nofollow-btn#{follower.id}", data: {id: follower.id}}
+                        %p フォロー中
+          .profile-box.modal-following-show
+            %p.amount=@followings.count
+            %p.info フォロー
+          .modal-following.hidden
+            .following-container
+              %p.following-title フォロー
+              %p.modal-following-delete ×
+              .following-list
+                - if @user.followings
+                  - @followings.each do |following|
+                    .following-info
+                      .following-image
+                        = link_to do
+                          = image_tag following.has_avatar, width: '40px', height: '40px'
+                      .following-account
+                        = link_to following.account, '#'
+                      .modal-follow-btn.hidden{class: "modal-follow-btn#{following.id}", data: {id: following.id}}
+                        %p フォローする
+                      .modal-nofollow-btn{class: ".modal-nofollow-btn#{following.id}", data: {id: following.id}}
+                        %p フォロー中   
         - if @user&.profile&.introduction.present?
           .profile-bottom
             .profile-introduction
@@ -66,6 +100,7 @@
                   = text_area_tag :"profile_content#{post.id}", '', class: 'comment-form'
                   .btn-comment-profile{data: {id: post.id}}
                     投稿する
+= javascript_pack_tag 'profile'
 
 
 

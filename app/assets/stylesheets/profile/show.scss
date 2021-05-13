@@ -31,7 +31,7 @@
     text-align: center;
     width: 350px;
     border-radius: 10px;
-    position: absolute;
+    position: fixed;
     top: 40%;
     left: 50%;
     transform: translate(-50%);
@@ -90,12 +90,44 @@
       h2 {
         margin-right: 20px;
       }
-      .btn-follow {
+
+      .btn-edit-profile a{
+        display: block;
         border: 1px solid #9E9E9E;
-        height: 25px;
+        font-weight: bold;
+        border-radius: 15px;
+        padding: 2px 20px;
         margin-top: 25px;
         margin-left: 20px;
         opacity: .6;
+      }
+
+      .btn-follow p {
+        border: 1px solid #9E9E9E;
+        font-weight: bold;
+        border-radius: 15px;
+        padding: 2px 20px;
+        margin-top: 25px;
+        margin-left: 20px;
+        opacity: .6;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      .btn-rm p{
+        color: white;
+        font-weight: bold;
+        background-color: #0095f6;
+        border-radius: 15px;
+        padding: 2px 20px;
+        margin-top: 25px;
+        margin-left: 20px;
+
+        &:hover {
+          cursor: pointer;
+        }
+       
       }
     }
 
@@ -103,14 +135,200 @@
       display: flex;
       justify-content: space-around;
 
-      .amount {
-        text-align: center;
-        font-weight: bold;
-        height: 15px;
+      .profile-box {
+        .amount {
+          text-align: center;
+          font-weight: bold;
+          height: 15px;
+        }
+        .info {
+          opacity: .5;
+        }
+        &:hover {
+          cursor: pointer;
+        }
       }
-      .info {
-        opacity: .5;
+      .modal-follower {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(26, 23, 23, 0.6);
+        z-index: 1000;
+
+        .follower-container {
+          position: fixed;
+          top: 20%;
+          left: 50%;
+          transform: translate(-50%);
+          width: 400px;
+          height: 500px;
+          background-color: white;
+          border-radius: 20px;
+
+          .follow-title {
+            text-align: center;
+            font-weight: bold;
+          }
+
+          .modal-follower-delete {
+            font-size: 25px;
+            font-weight: bold;
+            position: absolute;
+            left: 360px;
+            top: -17px;
+
+            &:hover {
+              cursor: pointer;
+            }
+          }
+
+          .follower-list {
+            border-top: 1px solid #9E9E9E;
+            overflow: scroll;
+            height: 415px;
+
+            .follower-info {
+              padding: 10px 20px;
+              display: flex;
+
+              .follower-image {
+                img {
+                  border-radius: 100%;
+                }
+              }
+              .follower-account {
+                font-weight: bold;
+                margin-left: 15px;
+                padding-top: 8px;
+              }
+              .modal-follow-btn {
+                margin-left: auto;
+                padding-top: 9px;
+
+                p {
+                  margin: 0;
+                  padding: 3px 8px;
+                  border: 1px solid #9E9E9E;
+                  font-weight: bold;
+                  border-radius: 15px;
+                  opacity: .6;
+                }
+
+                &:hover {
+                  cursor: pointer;
+                }
+                
+              }
+              .modal-nofollow-btn {
+                margin-left: auto;
+                padding-top: 9px;
+
+                p {
+                  color: white;
+                  background-color: #0095f6;
+                  margin: 0;
+                  padding: 3px 10px;
+                  font-weight: bold;
+                  border-radius: 15px;
+                }
+              }
+            }
+          }
+        }
       }
+      .modal-following {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(26, 23, 23, 0.6);
+        z-index: 1000;
+
+        .following-container {
+          position: fixed;
+          top: 20%;
+          left: 50%;
+          transform: translate(-50%);
+          width: 400px;
+          height: 500px;
+          background-color: white;
+          border-radius: 20px;
+
+          .following-title {
+            text-align: center;
+            font-weight: bold;
+          }
+
+          .modal-following-delete {
+            font-size: 25px;
+            font-weight: bold;
+            position: absolute;
+            left: 360px;
+            top: -17px;
+
+            &:hover {
+              cursor: pointer;
+            }
+          }
+
+          .following-list {
+            border-top: 1px solid #9E9E9E;
+            overflow: scroll;
+            height: 415px;
+
+            .following-info {
+              padding: 10px 20px;
+              display: flex;
+
+              .following-image {
+                img {
+                  border-radius: 100%;
+                }
+              }
+              .following-account {
+                font-weight: bold;
+                margin-left: 15px;
+                padding-top: 8px;
+              }
+              .modal-follow-btn {
+                margin-left: auto;
+                padding-top: 9px;
+
+                p {
+                  margin: 0;
+                  padding: 3px 8px;
+                  border: 1px solid #9E9E9E;
+                  font-weight: bold;
+                  border-radius: 15px;
+                  opacity: .6;
+                }
+
+                &:hover {
+                  cursor: pointer;
+                }
+                
+              }
+              .modal-nofollow-btn {
+                margin-left: auto;
+                padding-top: 9px;
+
+                p {
+                  color: white;
+                  background-color: #0095f6;
+                  margin: 0;
+                  padding: 3px 10px;
+                  font-weight: bold;
+                  border-radius: 15px;
+                }
+              }
+            }
+          }
+        }
+      }
+
     }
 
     .profile-introduction {
@@ -139,8 +357,8 @@
 .post-modal {
   background: rgba(26, 23, 23, 0.253);
   width: 100%;
-  height: 2000px;
-  position: absolute;
+  height: 100%;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 1000;
@@ -149,7 +367,7 @@
     color: white;
     font-weight: bold;
     font-size: 35px;
-    position: relative;
+    position: fixed;
     left: 1300px;
     &:hover {
       cursor: pointer;
@@ -158,8 +376,8 @@
   
 
   .post-modal-image {
-    position: absolute;
-    top: 100px;
+    position: fixed;
+    top: 80px;
     left: 50%;
     transform: translate(-50%);
     z-index: 2000;

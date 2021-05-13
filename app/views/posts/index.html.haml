@@ -25,7 +25,6 @@
                   = image_tag 'like.png', width: '20px', heght: '20px'
               .post-comment{data: {id: post.id}}
                 = image_tag 'comment.png', width: '20px', heght: '20px'
-              
               .post-modal.hidden{class: "post-modal#{post.id}"}
                 %p.modal-delete ×
                 .post-modal-image
@@ -42,7 +41,6 @@
                       = text_area_tag :"top_content#{post.id}", '', class: 'comment-form'
                       .btn-top-comment{data: {id: post.id}}
                         投稿する
-
               .post-share
                 = link_to "https://twitter.com/intent/tweet?url=https://http://localhost:3000/posts" do
                   = image_tag 'share.png', width: '20px', heght: '20px'
@@ -59,6 +57,8 @@
             = text_area_tag :"comment_content#{post.id}", '', placeholder: 'コメントを追加...', class: 'comment-form'
             .btn-comment{data: {id: post.id}}
               投稿する
+= javascript_pack_tag 'post'
+
 
 
 
