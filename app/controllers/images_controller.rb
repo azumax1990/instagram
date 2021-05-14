@@ -4,8 +4,7 @@ class ImagesController < ApplicationController
   def update
     profile = current_user.prepare_profile
     profile.update(image_params)
-    render json: profile 
-
+    render json: { status: 'ok' }
   end
 
   private

@@ -1,21 +1,21 @@
 .profile-image-modal
-  %p.modal-delete ×
+  %p.modal-delete.close ×
   .profile-image-change
     %p.modal-title プロフィール写真を変更する
-    = form_with() do |f|
-      = f.label :avatar, '写真をアップロード', class: 'profile-modal'
+    = form_with(model: @user.profile, url: image_path, method: 'put') do |f|
+      = f.label :avatar, '写真をアップロード', class: 'profile-modal profile-preview'
       = f.file_field :avatar, class: 'image-file-modal'
-    -# = link_to '写真をアップロードする', '#', class: 'profile-modal'
-    = link_to 'キャンセル', '#', class: 'profile-modal', id: 'profile-modal-close'
+      = f.submit '変更しますか？', class:'btn-profile hidden'
+    %p.profile-modal-close.close キャンセル
 %section
   .container.profile{data: {id: @user.id}}
     .profile-top
       .profile-left
         - if current_user.id == @user.id 
-          .profile-image
+          .profile-image.change-icon
             = image_tag @user.has_avatar, width: '120px', height: '120px', class: 'user-icon'
         - else
-          .profile-image-wrong
+          .profile-image-wrong.change-icon
             = image_tag @user.has_avatar, width: '120px', height: '120px', class: 'user-icon'
       .profile-right
         .profile-info
@@ -70,7 +70,7 @@
                         = link_to following.account, '#'
                       .modal-follow-btn.hidden{class: "modal-follow-btn#{following.id}", data: {id: following.id}}
                         %p フォローする
-                      .modal-nofollow-btn{class: ".modal-nofollow-btn#{following.id}", data: {id: following.id}}
+                      .modal-nofollow-btn.hidden{class: ".modal-nofollow-btn#{following.id}", data: {id: following.id}}
                         %p フォロー中   
         - if @user&.profile&.introduction.present?
           .profile-bottom
