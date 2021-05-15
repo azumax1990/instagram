@@ -16,4 +16,5 @@ class ProfileSerializer < ActiveModel::Serializer
   attributes :id, :avatar
 
   belongs_to :user
+  has_one_attached :avatar
 end

@@ -51,7 +51,7 @@
               .post-content
                 = post.content
             .post-bottom-comment
-              %p.comment-title コメント
+              %p.comment-title{data: {id: post.id}} コメント一覧
               .comment-container{class: "comment#{post.id}"}
           .comment-text-area
             = text_area_tag :"comment_content#{post.id}", '', placeholder: 'コメントを追加...', class: 'comment-form'

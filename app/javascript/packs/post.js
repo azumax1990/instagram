@@ -4,6 +4,28 @@ import axios from 'axios'
 import { csrfToken } from 'rails-ujs'
 axios.defaults.headers.common['X-CSRF-Token'] = csrfToken()
 
+const commentModalShow = (id) => {
+  $(`.post-modal${id}`).removeClass('hidden')
+    $('.slider').slick('setPosition')
+    $('.modal-delete').on('click', () => {
+      $(`.post-modal${id}`).addClass('hidden')
+    })
+}
+
+// const appendNewComment = (comment) => {
+//   $(modalTopCommentContainer).append(
+//     `<div class="modal-comment-box">
+//       <div class="modal-comment-left">
+//         <a href="#"><img src="${comment.user.avatar_url}"></a>
+//       </div>
+//       <div class="modal-comment-right">
+//         <p class="comment-account">${comment.user.account}</p>
+//         <p class="modal-comment">${comment.content}</p>
+//       </div>
+//     </div>
+//   `)
+// }
+
 document.addEventListener('DOMContentLoaded', () => {
 
   // 投稿slide機能
@@ -127,28 +149,21 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   // トップページ(モーダル)からのコメント機能
-    // コメント欄表示
+    // コメント一覧欄表示
   $('.post-comment').on('click', event => {
     const id = $(event.currentTarget).data('id')
-    $(`.post-modal${id}`).removeClass('hidden')
-    $('.slider').slick('setPosition')
-    $('.modal-delete').on('click', () => {
-      $(`.post-modal${id}`).addClass('hidden')
-    })
-  })
-    // コメント一覧表示
-  $('.post-comment').on('click', event => {
-    const id = $(event.currentTarget).data('id')
-    const modalTopCommentContainer = $(`.modal-top-comment-container${id}`)
+    commentModalShow(id)
+
     axios.get(`/posts/${id}/comments`)
     .then((response) => {
-      $(modalTopCommentContainer).html('')
       const comments = response.data
+      const modalTopCommentContainer = $(`.modal-top-comment-container${id}`)
+      $(modalTopCommentContainer).html('')
       comments.forEach(comment => {
         $(modalTopCommentContainer).append(
           `<div class="modal-comment-box">
             <div class="modal-comment-left">
-              <a href="#"><img src=""></a>
+              <a href="#"><img src="${comment.user.avatar_url}"></a>
             </div>
             <div class="modal-comment-right">
               <p class="comment-account">${comment.user.account}</p>
@@ -157,6 +172,32 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
         `)
       })
+    })
+  })
+
+  $('.comment-title').on('click', event => {
+    const id = $(event.currentTarget).data('id')
+    commentModalShow(id)
+
+    axios.get(`/posts/${id}/comments`)
+    .then((response) => {
+      const comments = response.data
+      const modalTopCommentContainer = $(`.modal-top-comment-container${id}`)
+      $(modalTopCommentContainer).html('')
+      comments.forEach(comment => {
+        $(modalTopCommentContainer).append(
+          `<div class="modal-comment-box">
+            <div class="modal-comment-left">
+              <a href="#"><img src="${comment.user.avatar_url}"></a>
+            </div>
+            <div class="modal-comment-right">
+              <p class="comment-account">${comment.user.account}</p>
+              <p class="modal-comment">${comment.content}</p>
+            </div>
+          </div>
+        `)
+      })
+
     })
   })
 
@@ -176,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
         $(modalTopCommentContainer).append(
           `<div class="modal-comment-box">
             <div class="modal-comment-left">
-              <a href="#"><img src=""></a>
+              <a href="#"><img src="${comment.user.avatar_url}"></a>
             </div>
             <div class="modal-comment-right">
               <p class="comment-account">${comment.user.account}</p>

@@ -86,16 +86,19 @@
       } 
 
       &-comment {
-        height: 50px;
-        overflow: scroll;
+        
         .comment-title {
           margin: 0;
           opacity: .3;
-          
+          &:hover {
+            cursor: pointer;
+          }
         }
 
         .comment-container {
-          
+          height: 50px;
+          overflow: scroll;
+
           .comment-show {
             display: flex;
 

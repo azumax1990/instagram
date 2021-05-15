@@ -14,21 +14,27 @@ document.addEventListener('DOMContentLoaded', () => {
   // プロフィール画像変更
   $('.profile-image').on('click', () => {
     $('.profile-image-modal').fadeIn()
-    $('.modal-delete').on('click', () => {
-      $('.profile-image-modal').fadeOut()
-    })
-    $('#profile-modal-close').on('click', () => {
+    $('.close').on('click', () => {
+      $('.btn-profile').addClass('hidden')
       $('.profile-image-modal').fadeOut()
     })
   })
-
-  // $('.image-file-modal').on('change', () => {
-  //   const id = $('.profile').data('id')
-  //   axios.put(`/images/${id}`)
-  //     .then((response) => {
-        
-  //     })
-  // })
+  $('.image-file-modal').on('change', (e) => {
+    if (e.target.files.length) {
+      const reader = new FileReader;
+      reader.onload = (e) => {
+        $('.user-icon').attr('src', e.target.result);
+        $('.btn-profile').removeClass('hidden')
+        $('.btn-profile').on('click', () => {
+          $('.profile-image-modal').fadeOut()
+          $('.btn-profile').addClass('hidden')
+        })
+      };
+      reader.readAsDataURL(e.target.files[0]);
+      
+      
+    }
+  })
 
    // 投稿詳細＜プロフィールページ＞
   $('.profile-post').on('click', event => {
@@ -53,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         $(modalCommentContainer).append(
           `<div class="modal-comment-box">
             <div class="modal-comment-left">
-              <a href="#"><img src=""></a>
+              <a href="#"><img src="${comment.user.avatar_url}"></a>
             </div>
             <div class="modal-comment-right">
               <p class="comment-account">${comment.user.account}</p>
@@ -84,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
         $(modalCommentContainer).append(
           `<div class="modal-comment-box">
             <div class="modal-comment-left">
-              <a href="#"><img src=""></a>
+              <a href="#"><img src="${comment.user.avatar_url}"></a>
             </div>
             <div class="modal-comment-right">
               <p class="comment-account">${comment.user.account}</p>
@@ -155,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
       })
   })
 
-  // フォロワー表示
+  // フォロワー一覧表示
   $('.modal-follower-show').on('click', () => {
     $('.modal-follower').removeClass('hidden')
     $('.modal-follower-delete').on('click', () => {
@@ -163,7 +169,6 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     // $('.follower-info').each(function (index, element) {
-      
     //   const id = $(element).data('id')
     //   axios.get(`/profiles/${id}/follows`)
     //     .then((response) => {
@@ -178,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //     })
     // })
   })
-  // フォロー表示
+  // フォロー一覧表示
   $('.modal-following-show').on('click', () => {
     $('.modal-following').removeClass('hidden')
     $('.modal-following-delete').on('click', () => {
