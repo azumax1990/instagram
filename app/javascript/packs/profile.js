@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
       })
   })
 
-  // フォロワー表示
+  // フォロワー一覧表示
   $('.modal-follower-show').on('click', () => {
     $('.modal-follower').removeClass('hidden')
     $('.modal-follower-delete').on('click', () => {
@@ -169,7 +169,6 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     // $('.follower-info').each(function (index, element) {
-      
     //   const id = $(element).data('id')
     //   axios.get(`/profiles/${id}/follows`)
     //     .then((response) => {
@@ -184,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //     })
     // })
   })
-  // フォロー表示
+  // フォロー一覧表示
   $('.modal-following-show').on('click', () => {
     $('.modal-following').removeClass('hidden')
     $('.modal-following-delete').on('click', () => {

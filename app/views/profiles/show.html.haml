@@ -44,10 +44,10 @@
                   - @followers.each do |follower|
                     .follower-info{data: {id: follower.id}}
                       .follower-image
-                        = link_to do
+                        = link_to profile_path(follower) do
                           = image_tag follower.has_avatar, width: '40px', height: '40px'
                       .follower-account
-                        = link_to follower.account, '#'
+                        = link_to follower.account, profile_path(follower)
                       .modal-follow-btn.hidden{class: "modal-follow-btn#{follower.id}", data: {id: follower.id}}
                         %p フォローする
                       .modal-nofollow-btn.hidden{class: ".modal-nofollow-btn#{follower.id}", data: {id: follower.id}}
@@ -64,10 +64,10 @@
                   - @followings.each do |following|
                     .following-info
                       .following-image
-                        = link_to do
+                        = link_to profile_path(following) do
                           = image_tag following.has_avatar, width: '40px', height: '40px'
                       .following-account
-                        = link_to following.account, '#'
+                        = link_to following.account, profile_path(following)
                       .modal-follow-btn.hidden{class: "modal-follow-btn#{following.id}", data: {id: following.id}}
                         %p フォローする
                       .modal-nofollow-btn.hidden{class: ".modal-nofollow-btn#{following.id}", data: {id: following.id}}

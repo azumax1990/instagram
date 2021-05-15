@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
         $(modalTopCommentContainer).append(
           `<div class="modal-comment-box">
             <div class="modal-comment-left">
-              <a href="/profile/${comment.user.id}"><img src="${comment.user.avatar_url}"></a>
+              <a href="#"><img src="${comment.user.avatar_url}"></a>
             </div>
             <div class="modal-comment-right">
               <p class="comment-account">${comment.user.account}</p>
