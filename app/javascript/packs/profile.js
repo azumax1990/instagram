@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         $(modalCommentContainer).append(
           `<div class="modal-comment-box">
             <div class="modal-comment-left">
-              <a href="#"><img src="${comment.user.profile}"></a>
+              <a href="#"><img src="${comment.user.avatar_url}"></a>
             </div>
             <div class="modal-comment-right">
               <p class="comment-account">${comment.user.account}</p>
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
         $(modalCommentContainer).append(
           `<div class="modal-comment-box">
             <div class="modal-comment-left">
-              <a href="#"><img src=""></a>
+              <a href="#"><img src="${comment.user.avatar_url}"></a>
             </div>
             <div class="modal-comment-right">
               <p class="comment-account">${comment.user.account}</p>

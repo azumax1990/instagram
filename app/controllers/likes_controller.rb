@@ -1,8 +1,6 @@
 class LikesController < ApplicationController
   before_action :authenticate_user!
 
-
-
   def show
     post = Post.find(params[:post_id])
     like_status = current_user.has_liked?(post)

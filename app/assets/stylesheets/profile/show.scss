@@ -437,13 +437,18 @@
         padding: 10px;
         height: 460px;
         overflow: scroll;
+
         .modal-comment-box {
           display: flex;
           margin-bottom: 5px;
           overflow: scroll;
+
           .modal-comment-left {
             img {
               border-radius: 100%;
+              height: 35px;
+              width: 35px;
+              margin-top: 5px;
             }
           }
 

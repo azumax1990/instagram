@@ -18,8 +18,13 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :account
+  include Rails.application.routes.url_helpers
+  attributes :id, :account, :avatar_url
 
   has_many :comments
   has_one :profile
+
+  def avatar_url
+    rails_blob_path(object.has_avatar) if object.has_avatar.attachment
+  end
 end
