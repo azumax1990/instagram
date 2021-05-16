@@ -57,6 +57,8 @@
             = text_area_tag :"comment_content#{post.id}", '', placeholder: 'コメントを追加...', class: 'comment-form'
             .btn-comment{data: {id: post.id}}
               投稿する
+    = link_to new_post_path do
+      = image_tag 'camera-icon.png',  width: '90px', height: '80px', class: 'link-new-post'
 = javascript_pack_tag 'post'
 
 

@@ -1,15 +1,14 @@
 class ProfilesController < ApplicationController
-  before_action :move_back, only: [:edit]
+  before_action :move_back, only: [:edit, :update]
   
   def show
     @user = User.find(params[:id])
     @profile = @user.prepare_profile
-    @followings = @user.followings
-    @followers = @user.followers
+    @followings = @user.followings.where.not(id: current_user.id)
+    @followers = @user.followers.where.not(id: current_user.id)
   end
 
   def edit
-    @user = User.find(params[:id])
     @profile = @user.prepare_profile
   end
 
@@ -31,7 +30,7 @@ class ProfilesController < ApplicationController
   def move_back
     @user = User.find(params[:id])
     if
-      !@user.id == current_user.id
+      @user.id != current_user.id
       redirect_to root_path
     end
   end

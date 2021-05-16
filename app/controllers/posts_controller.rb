@@ -3,13 +3,6 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all
-    # users = current_user.followings
-    # users.each do |user|
-    #   user.posts each do |post|
-    #     @posts = []
-    #     @posts.push.post
-    #   end
-    # end
   end
 
   def new
