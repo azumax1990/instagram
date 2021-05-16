@@ -4,6 +4,8 @@ import axios from 'axios'
 import { csrfToken } from 'rails-ujs'
 axios.defaults.headers.common['X-CSRF-Token'] = csrfToken()
 
+
+
 document.addEventListener('DOMContentLoaded', () => {
   
   // 投稿slide機能
@@ -134,6 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
           $(`.btn-follow${id}`).addClass('hidden')
           $(`.btn-rm${id}`).removeClass('hidden')
           $('#follower-amount').text(followersCount)
+
         }
       })
       .catch((e) => {
@@ -167,22 +170,53 @@ document.addEventListener('DOMContentLoaded', () => {
     $('.modal-follower-delete').on('click', () => {
       $('.modal-follower').addClass('hidden')
     })
-
-    // $('.follower-info').each(function (index, element) {
-    //   const id = $(element).data('id')
-    //   axios.get(`/profiles/${id}/follows`)
-    //     .then((response) => {
-    //       const hasFollowed = response.data.hasFollowed
-    //       const modalNofollowBtn = $(`.modal-nofollow-btn${id}`)
-    //       const modalFollowBtn = $(`.modal-follow-btn${id}`)
-    //         if (hasFollowed) {
-    //           $(modalNofollowBtn).removeClass('hidden')
-    //         } else {
-    //           $(modalFollowBtn).removeClass('hidden')
-    //         }
-    //     })
-    // })
   })
+
+  $('.follower-info').each(function (index, element) {
+    const id = $(element).data('id')
+    axios.get(`/profiles/${id}/follows`)
+      .then((response) => {
+        const hasFollowed = response.data.hasFollowed
+        const modalNofollowBtn = $(`.modal-nofollow-btn${id}`)
+        const modalFollowBtn = $(`.modal-follow-btn${id}`)
+          if (hasFollowed) {
+            $(modalNofollowBtn).removeClass('hidden')
+          } else {
+            $(modalFollowBtn).removeClass('hidden')
+          }
+      })
+  })
+
+    // フォロワー一覧からのフォロー機能
+  $('.modal-follow-btn').on('click', event => {
+    const id = $(event.currentTarget).data('id')
+    axios.post(`/profiles/${id}/follows`)
+      .then((response) => {
+        if ( response.data.status === 'ok' ) {
+          const followersCount = response.data.followersCount
+          $(`.modal-follow-btn${id}`).addClass('hidden')
+          $(`.modal-nofollow-btn${id}`).removeClass('hidden')
+          $('.following-amount').text(followersCount)
+        }
+      })
+  })
+
+    // フォロワー一覧からのフォロー削除
+  $('.modal-nofollow-btn').on('click', event => {
+    const id = $(event.currentTarget).data('id')
+    axios.post(`/profiles/${id}/nofollows`)
+      .then((response) => {
+        if ( response.data.status === 'ok' ) {
+          const followersCount = response.data.followersCount
+          $(`.modal-follow-btn${id}`).removeClass('hidden')
+          $(`.modal-nofollow-btn${id}`).addClass('hidden')
+          $('.following-amount').text(followersCount)
+        }
+      })
+  })
+
+
+  
   // フォロー一覧表示
   $('.modal-following-show').on('click', () => {
     $('.modal-following').removeClass('hidden')
@@ -191,4 +225,45 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   })
 
+  $('.following-info').each(function (index, element) {
+    const id = $(element).data('id')
+    axios.get(`/profiles/${id}/follows`)
+      .then((response) => {
+        const hasFollowed = response.data.hasFollowed
+        const modalNofollowBtn = $(`.modal-nofollowing-btn${id}`)
+        const modalFollowBtn = $(`.modal-following-btn${id}`)
+          if (hasFollowed) {
+            $(modalNofollowBtn).removeClass('hidden')
+          } else {
+            $(modalFollowBtn).removeClass('hidden')
+          }
+      })
+  })
+
+    // フォロー一覧からのフォロー機能
+  $('.modal-following-btn').on('click', event => {
+    const id = $(event.currentTarget).data('id')
+    axios.post(`/profiles/${id}/follows`)
+      .then((response) => {
+        if ( response.data.status === 'ok' ) {
+          const followersCount = response.data.followersCount
+          $(`.modal-following-btn${id}`).addClass('hidden')
+          $(`.modal-nofollowing-btn${id}`).removeClass('hidden')
+          $('.following-amount').text(followersCount)
+        }
+      })
+  })
+    // フォロー一覧からのフォロー削除
+  $('.modal-nofollowing-btn').on('click', event => {
+    const id = $(event.currentTarget).data('id')
+    axios.post(`/profiles/${id}/nofollows`)
+      .then((response) => {
+        if ( response.data.status === 'ok' ) {
+          const followersCount = response.data.followersCount
+          $(`.modal-following-btn${id}`).removeClass('hidden')
+          $(`.modal-nofollowing-btn${id}`).addClass('hidden')
+          $('.following-amount').text(followersCount)
+        }
+      })
+  })
 })

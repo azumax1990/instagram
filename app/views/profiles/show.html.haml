@@ -40,7 +40,7 @@
               %p.follow-title フォロワー
               %p.modal-follower-delete ×
               .follower-list
-                - if @user.followers
+                - if @followers
                   - @followers.each do |follower|
                     .follower-info{data: {id: follower.id}}
                       .follower-image
@@ -50,27 +50,27 @@
                         = link_to follower.account, profile_path(follower)
                       .modal-follow-btn.hidden{class: "modal-follow-btn#{follower.id}", data: {id: follower.id}}
                         %p フォローする
-                      .modal-nofollow-btn.hidden{class: ".modal-nofollow-btn#{follower.id}", data: {id: follower.id}}
+                      .modal-nofollow-btn.hidden{class: "modal-nofollow-btn#{follower.id}", data: {id: follower.id}}
                         %p フォロー中
           .profile-box.modal-following-show
-            %p.amount=@followings.count
+            %p.amount.following-amount=@followings.count
             %p.info フォロー
           .modal-following.hidden
             .following-container
               %p.following-title フォロー
               %p.modal-following-delete ×
               .following-list
-                - if @user.followings
+                - if @followings
                   - @followings.each do |following|
-                    .following-info
+                    .following-info{data: {id: following.id}}
                       .following-image
                         = link_to profile_path(following) do
                           = image_tag following.has_avatar, width: '40px', height: '40px'
                       .following-account
                         = link_to following.account, profile_path(following)
-                      .modal-follow-btn.hidden{class: "modal-follow-btn#{following.id}", data: {id: following.id}}
+                      .modal-following-btn.hidden{class: "modal-following-btn#{following.id}", data: {id: following.id}}
                         %p フォローする
-                      .modal-nofollow-btn.hidden{class: ".modal-nofollow-btn#{following.id}", data: {id: following.id}}
+                      .modal-nofollowing-btn.hidden{class: "modal-nofollowing-btn#{following.id}", data: {id: following.id}}
                         %p フォロー中   
         - if @user&.profile&.introduction.present?
           .profile-bottom
