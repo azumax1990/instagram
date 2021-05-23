@@ -3,6 +3,7 @@ class ProfilesController < ApplicationController
   
   def show
     @user = User.find(params[:id])
+    @posts = @user.posts.sort.reverse
     @profile = @user.prepare_profile
     @followings = @user.followings.where.not(id: current_user.id)
     @followers = @user.followers.where.not(id: current_user.id)

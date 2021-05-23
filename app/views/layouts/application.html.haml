@@ -18,8 +18,13 @@
             = link_to root_path do
               = image_tag 'Instagram_logo.png', width: '100px', height: '40px'
           .header-right
+            .dropdown-heart
+              = image_tag 'heart.png', class: 'header-heart', width: '38px', height: '38px'
+              .dropdown-heart-content
+                = link_to 'お気にり', '#'
+                = link_to '人気のユーザー', '#'
             .dropdown
-              = image_tag current_user.has_avatar, class: "header_avatar",width: '50px', height: '50px'
+              = image_tag current_user.has_avatar, class: 'header_avatar', width: '45px', height: '45px'
               .dropdown-content
                 = link_to '新規投稿', new_post_path
                 = link_to 'プロフィール', profile_path(current_user)
@@ -28,12 +33,17 @@
           - if user_signed_in?
             .header-left
               = link_to :back do
-                = image_tag 'Path 4.png', height: '30px', class: 'link-back'
+                = image_tag 'back.png', height: '30px', class: 'link-back'
               = link_to root_path do
                 = image_tag 'Instagram_logo.png', width: '100px', height: '40px'
             .header-right
+              .dropdown-heart
+                = image_tag 'heart.png', class: 'header-heart', width: '38px', height: '38px'
+                .dropdown-heart-content
+                  = link_to 'お気にり', '#'
+                  = link_to '人気のユーザー', '#'
               .dropdown
-                = image_tag current_user.has_avatar, class: "header_avatar",width: '50px', height: '50px'
+                = image_tag current_user.has_avatar, class: "header_avatar",width: '45px', height: '45px'
                 .dropdown-content
                   = link_to '新規投稿', new_post_path
                   = link_to 'プロフィール', profile_path(current_user)

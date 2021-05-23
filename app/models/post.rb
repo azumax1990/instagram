@@ -13,7 +13,8 @@
 #  index_posts_on_user_id  (user_id)
 #
 class Post < ApplicationRecord
-  
+  validate :image_type, :image_size, :image_length
+
   has_many :likes, dependent: :destroy
   has_many :liked_users, through: :likes, source: :user
   has_many :comments, dependent: :destroy
@@ -21,8 +22,13 @@ class Post < ApplicationRecord
 
   belongs_to :user
 
-  validate :image_type, :image_size, :image_length
+  def created_time
+    I18n.l(self.created_at, format: :default)
+  end
 
+  scope :within_a_week, -> { where(created_at: Time.current.ago(7.days)..Time.current) }
+  scope :popular_likes, -> { joins(:likes).group('likes.post_id').order('count_all DESC').count }
+  
   private
   def image_type
     images.each do |image|
