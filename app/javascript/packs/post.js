@@ -112,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const postId = $(element).data('postId')
     axios.get(`/posts/${postId}/comments`)
     .then((response) => {
+      debugger
       const comments = response.data
       const commentContainer = $(`.comment${postId}`)
       comments.forEach((comment) => { 

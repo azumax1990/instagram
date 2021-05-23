@@ -3,8 +3,7 @@ class NofollowsController < ApplicationController
 
   def create
     user = User.find(params[:profile_id])
-    relationship = current_user.unfollow(user)
-    relationship.destroy
+    current_user.unfollow(user)
     followers_count = user.followers.count
     render json: { status: 'ok',  followersCount: followers_count }
   end

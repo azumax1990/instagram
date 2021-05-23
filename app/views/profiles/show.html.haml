@@ -79,8 +79,8 @@
 %section.profile-post-container
   .container
     .profile-posts
-      - if @user.posts
-        - @user.posts.each do |post|
+      - if @posts
+        - @posts.each do |post|
           .profile-post{data: {id: post.id}}
             = image_tag post.images[0], width: '100%', height: '100%'
 
